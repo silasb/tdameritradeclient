@@ -57,12 +57,26 @@ impl TDAClient {
     ///
     /// get /userprincipals
     /// 
-    pub fn getuserprincipals<T>(&self) -> T
+    pub fn getuserprincipals<T>(&self, fields: Vec<String>) -> T
+    where
+        RequestBuilder: Execute<T>,
+    {
+        let mut builder = self.client.get(format!("{}userprincipals", crate::APIWWW));
+        if fields.len() > 0 {
+            builder.param("fields", fields.join(","));
+        }
+        builder.execute()
+    }
+    ///
+    /// get /userprincipals/streamersubscriptionkeys
+    ///
+    pub fn getstreamersubscriptionkeys<T>(&self, account_id: &str) -> TD
     where
         RequestBuilder: Execute<T>,
     {
         self.client
-            .get(format!("{}userprincipals", crate::APIWWW))
+            .get(format!("{}userprincipals/streamersubscriptionkeys", crate::APIWWW))
+            .param("accountIds", account_id)
             .execute()
     }
     ///
