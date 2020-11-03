@@ -63,7 +63,7 @@ impl TDAClient {
     {
         let mut builder = self.client.get(format!("{}userprincipals", crate::APIWWW));
         if fields.len() > 0 {
-            builder.param("fields", fields.join(","));
+            builder = builder.param("fields", fields.join(","));
         }
         builder.execute()
     }
@@ -300,7 +300,7 @@ mod tdaclient_tests{
         let refresh = env::var("TDREFRESHTOKEN").unwrap();
         let clientid = env::var("TDCLIENTKEY").unwrap();
         let c = TDAClient::new_usingrefresh(&refresh, &clientid);
-        println!("{}", c.getuserprincipals::<String>());
+        println!("{}", c.getuserprincipals::<String>(vec![]));
     }
 
     #[test]
@@ -310,7 +310,7 @@ mod tdaclient_tests{
         let clientid = env::var("TDCLIENTKEY").unwrap();
         let redirecturi = env::var("TDREDIRECT").unwrap();
         let c = TDAClient::new_usingcode(&code, &clientid, &redirecturi, true);
-        println!("{}", c.getuserprincipals::<String>());
+        println!("{}", c.getuserprincipals::<String>(vec![]));
     }
 
 }

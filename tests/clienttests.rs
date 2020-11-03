@@ -11,14 +11,14 @@ fn initialize_client() -> TDAClient {
 
 fn initialize_client_accountid() -> (TDAClient, String) {
     let c = initialize_client();
-    let user: serde_json::Value = c.getuserprincipals();
+    let user: serde_json::Value = c.getuserprincipals(vec![]);
     let accountid = user["primaryAccountId"].as_str().expect("Trouble Parsing Primary AccountId").to_owned();
     return (c, accountid);
 }
 
 #[test]
 fn able_to_retrieve_user_data() {
-    let resptxt: String = initialize_client().getuserprincipals();
+    let resptxt: String = initialize_client().getuserprincipals(vec![]);
     println!("{:?}", resptxt);
     assert_eq!(resptxt.starts_with("{\n  \"authToken\""), true);
 }
@@ -32,7 +32,7 @@ fn able_to_retrieve_quotes() {
 
 #[test]
 fn able_to_retrieve_tojson() {
-    let resptxt: serde_json::Value = initialize_client().getuserprincipals();
+    let resptxt: serde_json::Value = initialize_client().getuserprincipals(vec![]);
     println!("{:?}", resptxt);
     assert!(resptxt["userId"].is_string());
 }

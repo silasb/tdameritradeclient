@@ -6,7 +6,7 @@ fn main() {
     let c = TDAClient::new(env::var("TDAUTHTOKEN").unwrap());
 
     titleprint("user/account info:");
-    let resptxt: serde_json::Value = c.getuserprincipals();
+    let resptxt: serde_json::Value = c.getuserprincipals(vec![]);
     prettyprint(&resptxt);
 
     let accountid = resptxt["primaryAccountId"].as_str().unwrap();
