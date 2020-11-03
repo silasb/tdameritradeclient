@@ -70,7 +70,7 @@ impl TDAClient {
     ///
     /// get /userprincipals/streamersubscriptionkeys
     ///
-    pub fn getstreamersubscriptionkeys<T>(&self, account_id: &str) -> TD
+    pub fn getstreamersubscriptionkeys<T>(&self, account_id: &str) -> T
     where
         RequestBuilder: Execute<T>,
     {
